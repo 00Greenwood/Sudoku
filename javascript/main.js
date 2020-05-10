@@ -15,6 +15,7 @@ draw();
 function draw() {
   drawMajorGrid();
   drawMinorGrid();
+  drawNumbers();
 }
 
 function drawMinorGrid() {
@@ -38,7 +39,7 @@ function drawMajorGrid() {
     ctx.moveTo(x, 0);
     ctx.lineTo(x, h);
   }
-  for (let y = 0.5; y <= h; y += gridSize* sudokuGrid.minorHeight) {
+  for (let y = 0.5; y <= h; y += gridSize * sudokuGrid.minorHeight) {
     ctx.moveTo(0, y);
     ctx.lineTo(w, y);
   }
@@ -47,7 +48,13 @@ function drawMajorGrid() {
 
 function drawNumbers() {
   ctx.font = gridSize.toString() + "px Roboto-Regular";
-  ctx.fillStyle = "black";
-  ctx.textAlign = "center";
-  ctx.fillText("Hello World", canvas.width/2, canvas.height/2); 
+  for (let i = 0; i < sudokuGrid.majorWidth; ++i) {
+    for (let j = 0; j < sudokuGrid.majorHeight; ++j) {
+      ctx.fillText(
+        sudokuGrid.grid[i][j].toString(),
+        i * sudokuGrid.majorWidth * gridSize,
+        j * sudokuGrid.majorHeight * gridSize
+      );
+    }
+  }
 }
