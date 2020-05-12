@@ -48,12 +48,14 @@ function drawMajorGrid() {
 
 function drawNumbers() {
   ctx.font = gridSize.toString() + "px Roboto-Regular";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
   for (let i = 0; i < sudokuGrid.majorWidth; ++i) {
     for (let j = 0; j < sudokuGrid.majorHeight; ++j) {
       ctx.fillText(
         sudokuGrid.grid[i][j].toString(),
-        i * sudokuGrid.majorWidth * gridSize,
-        j * sudokuGrid.majorHeight * gridSize
+        gridSize / 2 + i * gridSize,
+        gridSize / 2 + gridSize * 0.08 + j * gridSize
       );
     }
   }

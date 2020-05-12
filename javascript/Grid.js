@@ -35,6 +35,6 @@ class Grid {
 
   // Return a list of numbers that could fit in the space.
   possibleNumbers(x, y) {
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    return [1, 2, 3, 4];
   }
 }
