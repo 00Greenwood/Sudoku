@@ -1,7 +1,8 @@
 var canvas = document.getElementById("sudokuCanvas");
 var ctx = canvas.getContext("2d");
 var gridSize = 50;
-var sudokuGrid = new Grid(2, 2);
+var textSize = 42;
+var sudokuGrid = new Grid(3, 3);
 var w = sudokuGrid.majorWidth * gridSize + 1;
 var h = sudokuGrid.majorHeight * gridSize + 1;
 
@@ -9,7 +10,6 @@ var h = sudokuGrid.majorHeight * gridSize + 1;
 canvas.width = w;
 canvas.height = h;
 
-sudokuGrid.initilize();
 draw();
 
 function draw() {
@@ -47,7 +47,7 @@ function drawMajorGrid() {
 }
 
 function drawNumbers() {
-  ctx.font = gridSize.toString() + "px Roboto-Regular";
+  ctx.font = textSize.toString() + "px Roboto-Regular";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   for (let i = 0; i < sudokuGrid.majorWidth; ++i) {
