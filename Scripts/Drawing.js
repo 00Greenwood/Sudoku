@@ -49,11 +49,14 @@ function drawNumbers(majorGrid) {
       let minorGrid = majorGrid.grid[i][j];
       for (let k = 0; k < minorGrid.width; ++k) {
         for (let l = 0; l < minorGrid.height; ++l) {
-          ctx.fillText(
-            minorGrid.grid[k][l].toString(),
-            0.5 + gridSize / 2 + i * gridSize * minorGrid.width + k * gridSize,
-            0.5 + gridSize / 2 + gridSize * 0.09 + j * gridSize * minorGrid.height + l * gridSize
-          );
+          let number = minorGrid.grid[k][l];
+          if (number != 0) {
+            ctx.fillText(
+              number.toString(),
+              0.5 + (0.5 + i * minorGrid.width + k) * gridSize,
+              0.5 + (0.59 + j * minorGrid.height + l) * gridSize
+            );
+          }
         }
       }
     }
