@@ -13,7 +13,10 @@ class MajorGrid {
         this.grid[i][j] = new MinorGrid(this.height, this.width, i, j);
       }
     }
-    this.permute();
+    // Permute the row and columns
+    for (let i = 0; i < Math.pow(this.width * this.height, 3); ++i) {
+      this.permute();
+    }
   }
 
   // Permute a pair of rows or columns.
@@ -69,7 +72,7 @@ class MajorGrid {
     let i = randomInt(this.height);
     let j = randomInt(this.width);
     let k = randomInt(this.width);
-    for (let l = 0; l < this.width; ++l){
+    for (let l = 0; l < this.width; ++l) {
       this.grid[l][i].permuteRows(j, k);
     }
   }
@@ -79,7 +82,7 @@ class MajorGrid {
     let i = randomInt(this.width);
     let j = randomInt(this.height);
     let k = randomInt(this.height);
-    for (let l = 0; l < this.height; ++l){
+    for (let l = 0; l < this.height; ++l) {
       this.grid[i][l].permuteColumns(j, k);
     }
   }

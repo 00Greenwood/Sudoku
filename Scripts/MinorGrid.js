@@ -7,7 +7,7 @@ class MinorGrid {
     // Position in the major grid
     this.majorX = x;
     this.majorY = y;
-    // Fill the grid with 0's
+    // Fill the grid with the sudoku seed.
     this.grid = [];
     for (let i = 0; i < this.width; ++i) {
       this.grid[i] = [];
@@ -29,12 +29,21 @@ class MinorGrid {
     if (i == j) {
       return;
     }
-
+    for (let k = 0; k < this.width; ++k) {
+      let temp = this.grid[k][i];
+      this.grid[k][i] = this.grid[k][j];
+      this.grid[k][j] = temp;
+    }
   }
 
   permuteColumns(i, j) {
     if (i == j) {
       return;
+    }
+    for (let k = 0; k < this.height; ++k) {
+      let temp = this.grid[i][k];
+      this.grid[i][k] = this.grid[j][k];
+      this.grid[j][k] = temp;
     }
   }
 }
