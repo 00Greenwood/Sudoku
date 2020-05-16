@@ -49,7 +49,7 @@ function drawNumbers(majorGrid) {
       let minorGrid = majorGrid.grid[i][j];
       for (let k = 0; k < minorGrid.width; ++k) {
         for (let l = 0; l < minorGrid.height; ++l) {
-          let number = minorGrid.grid[k][l];
+          let number = minorGrid.inputGrid[k][l];
           if (number != 0) {
             ctx.fillText(
               number.toString(),

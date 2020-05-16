@@ -9,15 +9,18 @@ class MinorGrid {
     this.majorY = y;
     // Fill the grid with the sudoku seed.
     this.grid = [];
+    this.inputGrid = []
     for (let i = 0; i < this.width; ++i) {
       this.grid[i] = [];
+      this.inputGrid[i] = [];
       for (let j = 0; j < this.height; ++j) {
-        this.grid[i][j] = this.calculateNumber(i,j);
+        this.grid[i][j] = this.calculateNumber(i, j);
+        this.inputGrid[i][j] = this.grid[i][j];
       }
     }
   }
 
-  calculateNumber(x, y){
+  calculateNumber(x, y) {
     let rowModifier = this.majorX * this.width + x;
     let columnModifier = this.majorY + y * this.width;
     let number = rowModifier + columnModifier;

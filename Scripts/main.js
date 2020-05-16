@@ -1,4 +1,5 @@
-var sudokuGrid = new MajorGrid(3, 3);
-var inputGrid = new MajorGrid(3, 3);
+var height = 2;
+var width = 2;
+var sudokuGrid = new MajorGrid(width, height);
 
-draw(inputGrid);
+draw(sudokuGrid);

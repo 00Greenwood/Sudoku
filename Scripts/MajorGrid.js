@@ -4,7 +4,7 @@ class MajorGrid {
   constructor(width, height) {
     this.width = width; // minor grid height
     this.height = height; // minor grid width
-    // Fill the grid with minor grids
+    // Fill the grid with minor grids.
     this.grid = [];
     for (let i = 0; i < this.width; ++i) {
       this.grid[i] = [];
@@ -13,9 +13,24 @@ class MajorGrid {
         this.grid[i][j] = new MinorGrid(this.height, this.width, i, j);
       }
     }
-    // Permute the row and columns
+    // Permute the row and columns.
     for (let i = 0; i < Math.pow(this.width * this.height, 3); ++i) {
       this.permute();
+    }
+    // Whilst solvable remove a random number from the grid.
+    while(true) {
+      let x = randomInt(this.width);
+      let y = randomInt(this.height);
+      let minorGrid = this.grid[x][y];
+      let i = randomInt(minorGrid.width);
+      let j = randomInt(minorGrid.height);
+      let number = minorGrid.inputGrid[i][j];
+      minorGrid.inputGrid[i][j] = 0;
+      if (!this.isSolvable()) {
+        minorGrid.inputGrid[i][j] = number;
+        break;
+      }
+      break;
     }
   }
 
@@ -85,5 +100,9 @@ class MajorGrid {
     for (let l = 0; l < this.height; ++l) {
       this.grid[i][l].permuteColumns(j, k);
     }
+  }
+
+  isSolvable(){
+    return true;
   }
 }
