@@ -18,18 +18,13 @@ class MajorGrid {
       this.permute();
     }
     // Whilst solvable remove a random number from the grid.
-    while(true) {
+    while(!this.isSolvable()) {
       let x = randomInt(this.width);
       let y = randomInt(this.height);
       let minorGrid = this.grid[x][y];
       let i = randomInt(minorGrid.width);
       let j = randomInt(minorGrid.height);
-      let number = minorGrid.inputGrid[i][j];
-      minorGrid.inputGrid[i][j] = 0;
-      if (!this.isSolvable()) {
-        minorGrid.inputGrid[i][j] = number;
-        break;
-      }
+      minorGrid.inputGrid[i][j] = minorGrid.grid[i][j];
       break;
     }
   }
@@ -103,6 +98,6 @@ class MajorGrid {
   }
 
   isSolvable(){
-    return true;
+    return false;
   }
 }

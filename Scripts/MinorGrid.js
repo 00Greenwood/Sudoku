@@ -15,7 +15,7 @@ class MinorGrid {
       this.inputGrid[i] = [];
       for (let j = 0; j < this.height; ++j) {
         this.grid[i][j] = this.calculateNumber(i, j);
-        this.inputGrid[i][j] = this.grid[i][j];
+        this.inputGrid[i][j] = 0;
       }
     }
   }
