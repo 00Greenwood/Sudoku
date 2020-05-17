@@ -141,41 +141,25 @@ class MajorGrid {
     // Initial exact cover matrix with 1's and 0's.
     let exactCoverMatrix = [];
     for (let i = 0; i < this.numbers; ++i) {
-      exactCoverMatrix[i] = [];
       for (let j = 0; j < this.numbers; ++j) {
-        exactCoverMatrix[i][j] = [];
         for (let k = 0; k < this.numbers; ++k) {
-          exactCoverMatrix[i][j][k] = [];
+          let index = k + j * this.numbers + i * this.numbers * this.numbers;
+          exactCoverMatrix[index] = [];
           for (let l = 0; l < 4 * Math.pow(this.numbers, 2); ++l) {
-            exactCoverMatrix[i][j][k][l] = this.calculate1or0(i, j, k, l);
-          }
-        }
-      }
-    }
-    // Change the exact cover matrix based on the input grid.
-    /*for (let i = 0; i < this.width; ++i) {
-      for (let j = 0; j < this.height; ++j) {
-        let minorGrid = this.grid[i][j];
-        for (let k = 0; k < this.minorWidth; ++k) {
-          for (let l = 0; l < this.minorHeight; ++l) {
-            if (minorGrid.inputGrid[k][l] != 0) {
-              let rowIndex = this.minorHeight * j + l;
-              let columnIndex = this.minorWidth * i + k;
-              let numberIndex = minorGrid.inputGrid[k][l] - 1;
-              let boxIndex = i + j * this.width;
-              let constraint1Index = columnIndex + rowIndex * this.numbers;
-              let constraint2Index = Math.pow(this.numbers, 2) + numberIndex + rowIndex * this.numbers;
-              let constraint3Index = 2 * Math.pow(this.numbers, 2) + numberIndex + columnIndex * this.numbers;
-              let constraint4Index = 3 * Math.pow(this.numbers, 2) + numberIndex + boxIndex * this.numbers;
-              exactCoverMatrix[rowIndex][columnIndex][numberIndex][constraint1Index] = 1;
-              exactCoverMatrix[rowIndex][columnIndex][numberIndex][constraint2Index] = 1;
-              exactCoverMatrix[rowIndex][columnIndex][numberIndex][constraint3Index] = 1;
-              exactCoverMatrix[rowIndex][columnIndex][numberIndex][constraint4Index] = 1;
+            if (this.getInputNumber(i, j) == 0) {
+              exactCoverMatrix[index][l] = this.calculate1or0(i, j, k, l);
+            } else if (this.getInputNumber(i, j) == k + 1) {
+              exactCoverMatrix[index][l] = this.calculate1or0(i, j, k, l);
+            } else {
+              exactCoverMatrix[index][l] = 0;
             }
           }
         }
       }
-    }*/
+    }
+    // Perform Knuth's Algorithm X recursivly.
+    let reducedMatrix = KnuthsAlgorithmX(exactCoverMatrix);
+
 
     return true;
   }
