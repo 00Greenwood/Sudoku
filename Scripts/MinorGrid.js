@@ -49,4 +49,21 @@ class MinorGrid {
       this.grid[j][k] = temp;
     }
   }
+
+    // Permute a pair of numbers.
+    permuteNumbers(i, j) {
+      if (i == j) {
+        return;
+      }
+      for (let k = 0; k < this.width; ++k) {
+        for (let l = 0; l < this.height; ++l) {
+          if (this.grid[k][l] == i) {
+            this.grid[k][l] = j
+          } else if (this.grid[k][l] == j) {
+            this.grid[k][l] = i
+          }
+        }
+      }
+    }
+
 }

@@ -13,25 +13,15 @@ class MajorGrid {
         this.grid[i][j] = new MinorGrid(this.height, this.width, i, j);
       }
     }
-    // Permute the row and columns.
-    for (let i = 0; i < Math.pow(this.width * this.height, 3); ++i) {
+    // Permute the row and columns, mixing up the grid.
+    for (let i = 0; i < Math.pow(this.width * this.height, 4); ++i) {
       this.permute();
-    }
-    // Whilst solvable remove a random number from the grid.
-    while(!this.isSolvable()) {
-      let x = randomInt(this.width);
-      let y = randomInt(this.height);
-      let minorGrid = this.grid[x][y];
-      let i = randomInt(minorGrid.width);
-      let j = randomInt(minorGrid.height);
-      minorGrid.inputGrid[i][j] = minorGrid.grid[i][j];
-      break;
     }
   }
 
   // Permute a pair of rows or columns.
   permute() {
-    switch (randomInt(4)) {
+    switch (randomInt(5)) {
       case 0:
         this.permuteMajorRow();
         break;
@@ -43,6 +33,9 @@ class MajorGrid {
         break;
       case 3:
         this.permuteMinorColumn();
+        break;
+      case 4:
+        this.permuteNumbers();
         break;
       default:
         break;
@@ -97,7 +90,14 @@ class MajorGrid {
     }
   }
 
-  isSolvable(){
-    return false;
+  // Permute a pair of numbers.
+  permuteNumbers() {
+    let i = randomInt(Math.pow(this.width * this.height, 2));
+    let j = randomInt(Math.pow(this.width * this.height, 2));
+    for (let k = 0; k < this.width; ++k) {
+      for (let l = 0; l < this.height; ++l) {
+        this.grid[k][l].permuteNumbers(i, j);
+      }
+    }
   }
 }
