@@ -12,8 +12,11 @@ while (sudokuGrid.countInputs() < height * width - 1) {
   sudokuGrid.setInputNumber(i, j, sudokuGrid.getNumber(i, j));
 }
 // Check the sudoku is unique, if not, add a number.
-//while (!sudokuGrid.hasUniqueSolution()) {
-
-//}
+while (!sudokuGrid.hasUniqueSolution()) {
+  let i = randomInt(totalWidth);
+  let j = randomInt(totalHeight);
+  sudokuGrid.setInputNumber(i, j, sudokuGrid.getNumber(i, j));
+  break;
+}
 
 draw(sudokuGrid);
