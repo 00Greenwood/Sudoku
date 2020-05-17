@@ -4,6 +4,7 @@ class MajorGrid {
   constructor(width, height) {
     this.width = width; // minor grid height
     this.height = height; // minor grid width
+    this.numbers = width * height; // Grid contains 1 to numbers
     // Fill the grid with minor grids.
     this.grid = [];
     for (let i = 0; i < this.width; ++i) {
@@ -14,8 +15,17 @@ class MajorGrid {
       }
     }
     // Permute the row and columns, mixing up the grid.
-    for (let i = 0; i < Math.pow(this.width * this.height, 4); ++i) {
+    for (let i = 0; i < Math.pow(this.numbers, 4); ++i) {
       this.permute();
+    }
+    // Add some starting numbers, this.number - 1 is the minimum number required. 
+    while (this.countInputs() < this.numbers - 1) {
+      let i = randomInt(this.width);
+      let j = randomInt(this.height);
+      let k = randomInt(this.height);
+      let l = randomInt(this.width);
+      let minorGrid = this.grid[i][j];
+      minorGrid.inputGrid[k][l] = minorGrid.grid[k][l];
     }
   }
 
@@ -92,12 +102,23 @@ class MajorGrid {
 
   // Permute a pair of numbers.
   permuteNumbers() {
-    let i = randomInt(Math.pow(this.width * this.height, 2));
-    let j = randomInt(Math.pow(this.width * this.height, 2));
+    let i = randomInt(this.numbers);
+    let j = randomInt(this.numbers);
     for (let k = 0; k < this.width; ++k) {
       for (let l = 0; l < this.height; ++l) {
         this.grid[k][l].permuteNumbers(i, j);
       }
     }
   }
+
+  countInputs() {
+    let sum = 0;
+    for (let i = 0; i < this.width; ++i) {
+      for (let j = 0; j < this.height; ++j) {
+        sum += this.grid[i][j].countInputs();
+      }
+    }
+    return sum;
+  }
+
 }
