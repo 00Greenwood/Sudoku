@@ -7,8 +7,8 @@ function randomInt(x) {
 function KnuthsAlgorithmX(matrix) {
   let columnWithLeastOnes = findColumnWithLeastOnes(matrix);
   for (let i = 0; i < matrix.length; ++i) {
-    if (matrix[i][columnWithLeastOnes] == 1){
-      let reducdedMatrix = reduceMatrix(matrix, i, columnWithLeastOnes);
+    if (matrix[i][columnWithLeastOnes] == 1) {
+      let reducdedMatrix = reduceMatrix(matrix, i);
     }
   }
 }
@@ -31,6 +31,33 @@ function findColumnWithLeastOnes(matrix) {
   return minimumIndex;
 }
 
-function reduceMatrix(matrix, i, j) {
-  
+function reduceMatrix(matrix, x) {
+  let columnsToRemove = [];
+  let rowsToRemove = [];
+  for (let i = 0; i < matrix[x].length; ++i) {
+    if (matrix[x][i] == 1) {
+      columnsToRemove.push(i);
+    }
+  }
+  for (let i = 0; i < columnsToRemove.length; ++i) {
+    for (let j = 0; j < matrix[columnsToRemove[i]].length; ++j) {
+      if (matrix[j][columnsToRemove[i]] == 1) {
+        if (rowsToRemove.includes(j)) {
+          rowsToRemove.push(j);
+        }
+      }
+    }
+  }
+  let reducedMatrix = [];
+  for (let i = 0; i < matrix.length; ++i) {
+    if (!rowsToRemove.includes(i)) {
+      reducedMatrix[i] = [];
+      for (let j = 0; j < matrix[i].length; ++j) {
+        if (!columnsToRemove.includes(j)) {
+          reducedMatrix[i][j] = matrix[i][j];
+        }
+      }
+    }
+  }
+  return reducedMatrix;
 }
