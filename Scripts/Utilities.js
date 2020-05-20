@@ -8,7 +8,7 @@ function KnuthsAlgorithmX(matrix) {
   let columnWithLeastOnes = findColumnWithLeastOnes(matrix);
   for (let i = 0; i < matrix.length; ++i) {
     if (matrix[i][columnWithLeastOnes] == 1) {
-      let reducdedMatrix = reduceMatrix(matrix, i);
+      let toRemove = columnsAndRowstoRemove(matrix, i);
     }
   }
 }
@@ -31,33 +31,21 @@ function findColumnWithLeastOnes(matrix) {
   return minimumIndex;
 }
 
-function reduceMatrix(matrix, x) {
-  let columnsToRemove = [];
-  let rowsToRemove = [];
-  for (let i = 0; i < matrix[x].length; ++i) {
-    if (matrix[x][i] == 1) {
-      columnsToRemove.push(i);
+function columnsAndRowstoRemove(matrix, rowIndex) {
+  let toRemove = [[], []];
+  for (let i = 0; i < matrix[rowIndex].length; ++i) {
+    if (matrix[rowIndex][i] == 1) {
+      toRemove[0].push(i);
     }
   }
-  for (let i = 0; i < columnsToRemove.length; ++i) {
-    for (let j = 0; j < matrix[columnsToRemove[i]].length; ++j) {
-      if (matrix[j][columnsToRemove[i]] == 1) {
-        if (rowsToRemove.includes(j)) {
-          rowsToRemove.push(j);
+  for (let i = 0; i < toRemove[0].length; ++i) {
+    for (let j = 0; j < matrix.length; ++j) {
+      if (matrix[j][toRemove[0][i]] == 1) {
+        if (!toRemove[1].includes(j)) {
+          toRemove[1].push(j);
         }
       }
     }
   }
-  let reducedMatrix = [];
-  for (let i = 0; i < matrix.length; ++i) {
-    if (!rowsToRemove.includes(i)) {
-      reducedMatrix[i] = [];
-      for (let j = 0; j < matrix[i].length; ++j) {
-        if (!columnsToRemove.includes(j)) {
-          reducedMatrix[i][j] = matrix[i][j];
-        }
-      }
-    }
-  }
-  return reducedMatrix;
+  return toRemove;
 }
