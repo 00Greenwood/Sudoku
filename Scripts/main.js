@@ -1,4 +1,4 @@
-var height = 3;
+var height = 1;
 var width = 2;
 var totalHeight = width * height;
 var totalWidth =  height * width;

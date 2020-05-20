@@ -139,35 +139,44 @@ class MajorGrid {
 
   hasUniqueSolution() {
     // Initial exact cover matrix with 1's and 0's.
-    let exactCoverMatrix = [];
-    for (let i = 0; i < this.numbers; ++i) {
-      for (let j = 0; j < this.numbers; ++j) {
-        for (let k = 0; k < this.numbers; ++k) {
-          let index = k + j * this.numbers + i * this.numbers * this.numbers;
-          exactCoverMatrix[index] = [];
-          for (let l = 0; l < 4 * Math.pow(this.numbers, 2); ++l) {
-            if (this.getInputNumber(i, j) == 0) {
-              exactCoverMatrix[index][l] = this.calculate1or0(i, j, k, l);
-            } else if (this.getInputNumber(i, j) == k + 1) {
-              exactCoverMatrix[index][l] = this.calculate1or0(i, j, k, l);
-            } else {
-              exactCoverMatrix[index][l] = 0;
-            }
-          }
-        }
-      }
-    }
+    let matrix = this.generateExactCoverMatrix();
     // Perform Knuth's Algorithm X recursivly.
-    let reducedMatrix = KnuthsAlgorithmX(exactCoverMatrix);
+    let reducedMatrix = KnuthsAlgorithmX(matrix);
 
 
     return true;
   }
 
+  generateExactCoverMatrix() {
+    let matrix = []
+    for (let rowIndex = 0; rowIndex < this.numbers; ++rowIndex) {
+      for (let columnIndex = 0; columnIndex < this.numbers; ++columnIndex) {
+        for (let numberIndex = 0; numberIndex < this.numbers; ++numberIndex) {
+          let rowOffset = rowIndex * this.numbers * this.numbers;
+          let columnOffset = columnIndex * this.numbers;
+          let index = numberIndex + columnOffset + rowOffset;
+          matrix[index] = [];
+          for (let l = 0; l < 4 * Math.pow(this.numbers, 2); ++l) {
+            if (this.getInputNumber(columnIndex, rowIndex) == 0) {
+              matrix[index][l] = this.calculate1or0(rowIndex, columnIndex, numberIndex, l);
+            }
+            else if (this.getInputNumber(columnIndex, rowIndex) == numberIndex + 1) {
+              matrix[index][l] = this.calculate1or0(rowIndex, columnIndex, numberIndex, l);
+            }
+            else {
+              matrix[index][l] = 0;
+            }
+          }
+        }
+      }
+    }
+    return matrix;
+  }
+
   calculate1or0(rowIndex, columnIndex, numberIndex, constraintIndex) {
-    let minorX = Math.floor(columnIndex / this.minorWidth);
-    let minorY = Math.floor(rowIndex / this.minorHeight);
-    let boxIndex = minorY + this.width * minorX;
+    let x = Math.floor(columnIndex / this.minorWidth);
+    let y = Math.floor(rowIndex / this.minorHeight);
+    let boxIndex = x + y * this.width;
     let constraintGroup = Math.floor(constraintIndex / Math.pow(this.numbers, 2));
     let constraintSubIndex = constraintIndex % Math.pow(this.numbers, 2);
     switch (constraintGroup) {
