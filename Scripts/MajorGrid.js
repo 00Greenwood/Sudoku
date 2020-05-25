@@ -141,7 +141,7 @@ class MajorGrid {
     // Initial exact cover matrix with 1's and 0's.
     let matrix = this.generateExactCoverMatrix();
     // Perform Knuth's Algorithm X recursivly.
-    let reducedMatrix = KnuthsAlgorithmX(matrix);
+    let solution = KnuthsAlgorithmX(matrix);
 
 
     return true;
