@@ -4,27 +4,30 @@
 <head>
   <meta charset="utf-8" />
   <title>Sudoku</title>
-  <link rel="stylesheet" type="text/css" href="Fonts/Fonts.css" />
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-    }
-
-    canvas {
-      background: #ffffff;
-      display: block;
-      margin: 0 auto;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-  <canvas id="sudokuCanvas"></canvas>
+<body class="bg-dark text-white">
+  <div class="container-fluid p-3">
+    <canvas onclick="onUpdateFocus(event)" id="canvas" class="bg-secondary"></canvas>
+  </div>
+  <div class="container-fluid p-3">
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 1)">1</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 2)">2</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 3)">3</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 4)">4</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 5)">5</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 6)">6</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 7)">7</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 8)">8</button>
+    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 9)">9</button>
+  </div>
   <script src="Scripts/Utilities.js"></script>
-  <script src="Scripts/MinorGrid.js"></script>
-  <script src="Scripts/MajorGrid.js"></script>
-  <script src="Scripts/Drawing.js"></script>
+  <script src="Scripts/Sudoku.js"></script>
   <script src="Scripts/main.js"></script>
 </body>
 
