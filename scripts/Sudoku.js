@@ -9,8 +9,8 @@ class Sudoku {
     this.width = size;
     this.height = size;
     this.numbers = size; // Sudoku contains 1 to numbers
-    gridSize = canvas.width / size;
-    textSize = 0.75 * canvas.width / size;
+    gridSize = (canvas.width - 1) / size;
+    textSize = 0.75 * (canvas.width - 1) / size;
     this.inFocus = [-1, -1];
     // Fill the grid with minor grids.
     this.grid = [];
@@ -129,6 +129,43 @@ class Sudoku {
   }
 
   isValid() {
+    for (let x = 0; x < this.width; ++x) {
+      this.isValidColumn(x);
+      for (let y = 0; y < this.height; ++y) {
+        this.isValidRow(y);
+        this.isValidBox(x, y);
+      }
+    }
+    return true;
+  }
+
+  isValidColumn(x) {
+    let check = [];
+    for (let i = 0; i < this.height; ++i) {
+      if (this.grid[x][i] != 0) {
+        if (check.includes(this.grid[x][i])) {
+          return false;
+        }
+        check.push(this.grid[x][i]);
+      }
+    }
+    return true;
+  }
+
+  isValidRow(y) {
+    let check = [];
+    for (let i = 0; i < this.width; ++i) {
+      if (this.grid[i][y] != 0) {
+        if (check.includes(this.grid[i][y])) {
+          return false;
+        }
+        check.push(this.grid[i][y]);
+      }
+    }
+    return true;
+  }
+
+  isValidBox(x, y) {
     for (let x = 0; x < this.width; ++x) {
       for (let y = 0; y < this.height; ++y) {
         this.grid[x][y];
