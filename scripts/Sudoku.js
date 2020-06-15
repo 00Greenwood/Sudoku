@@ -1,7 +1,7 @@
 var lightColor = "#f8f9fa";
 var darkColor = "#6c757d";
-var gridSize = 60;
-var textSize = 48;
+var gridSize = 0;
+var textSize = 0;
 
 // The class representation of the sudoku.
 class Sudoku {
@@ -9,6 +9,8 @@ class Sudoku {
     this.width = size;
     this.height = size;
     this.numbers = size; // Sudoku contains 1 to numbers
+    gridSize = canvas.width / size;
+    textSize = 0.75 * canvas.width / size;
     this.inFocus = [-1, -1];
     // Fill the grid with minor grids.
     this.grid = [];
@@ -23,11 +25,7 @@ class Sudoku {
   draw() {
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
-
-    // Update canvas width and height
-    canvas.width = gridSize * this.width + 1;
-    canvas.height = gridSize * this.height + 1;
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.drawGrid(ctx);
     this.drawNumbers(ctx);
   }
@@ -61,7 +59,6 @@ class Sudoku {
       }
     }
     ctx.fillStyle = lightColor;
-    ctx.lineWidth = 1;
     ctx.fillRect(
       0.5 + this.inFocus[0] * gridSize,
       0.5 + this.inFocus[1] * gridSize,
@@ -84,8 +81,8 @@ class Sudoku {
         if (number != 0) {
           ctx.fillText(
             number.toString(),
-            (0.5 + x) * gridSize,
-            (0.59 + y) * gridSize
+            0.5 + Math.floor((0.5 + x) * gridSize),
+            0.5 + Math.floor((0.59 + y) * gridSize)
           );
         }
         ctx.fillStyle = lightColor;
@@ -101,5 +98,42 @@ class Sudoku {
   onButtonClick(number) {
     this.grid[this.inFocus[0]][this.inFocus[1]] = number;
     this.draw();
+  }
+
+  onSolve() {
+    this.recursivelyFindSoltuion(0);
+  }
+
+  recursivelyFindSoltuion(position) {
+    if (position == this.width * this.height) {
+      return true;
+    }
+    let x = position % this.width;
+    let y = Math.floor(position / this.width);
+    if (this.grid[x][y] != 0) {
+      if (this.isValid()) {
+        return this.recursivelyFindSoltuion(position + 1);
+      }
+      return false;
+    }
+    for (let i = 1; i <= this.numbers; ++i) {
+      this.grid[x][y] = i;
+      this.draw();
+      if (this.isValid()) {
+        if (this.recursivelyFindSoltuion(position + 1)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  isValid() {
+    for (let x = 0; x < this.width; ++x) {
+      for (let y = 0; y < this.height; ++y) {
+        this.grid[x][y];
+      }
+    }
+    return true;
   }
 }

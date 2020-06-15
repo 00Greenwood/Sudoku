@@ -8,3 +8,7 @@ function onUpdateFocus(e) {
 function onButtonClick(e, number) {
   sudoku.onButtonClick(number);
 }
+
+function onSolve(e) {
+  sudoku.onSolve();
+}

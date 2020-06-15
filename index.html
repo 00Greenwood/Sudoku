@@ -9,25 +9,27 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="scripts/Sudoku.js"></script>
 </head>
 
 <body class="bg-dark text-white">
-  <div class="container-fluid p-3">
-    <canvas onclick="onUpdateFocus(event)" id="canvas" class="bg-secondary"></canvas>
+  <div class="container p-3 text-center">
+    <canvas onclick="onUpdateFocus(event)" id="canvas" class="bg-secondary" width="504" height="504"></canvas>
   </div>
-  <div class="container-fluid p-3">
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 1)">1</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 2)">2</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 3)">3</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 4)">4</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 5)">5</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 6)">6</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 7)">7</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 8)">8</button>
-    <button type="button" class="btn btn-primary" onclick="onButtonClick(event, 9)">9</button>
+  <div class="container p-3 text-center">
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 1)">1</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 2)">2</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 3)">3</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 4)">4</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 5)">5</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 6)">6</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 7)">7</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 8)">8</button>
+    <button type="button" class="btn btn-lg btn-secondary" onclick="onButtonClick(event, 9)">9</button>
   </div>
-  <script src="scripts/Utilities.js"></script>
-  <script src="scripts/Sudoku.js"></script>
+  <div class="container p-3 text-center">
+    <button type="button" class="btn btn-lg btn-secondary btn-block" onclick="onSolve(event, 9)">Solve</button>
+  </div>
   <script src="scripts/main.js"></script>
 </body>
 
