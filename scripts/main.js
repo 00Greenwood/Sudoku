@@ -1,4 +1,4 @@
-var sudoku = new Sudoku(9);
+var sudoku = new Sudoku(3);
 sudoku.draw();
 
 function onUpdateFocus(e) {

@@ -6,11 +6,11 @@ var textSize = 0;
 // The class representation of the sudoku.
 class Sudoku {
   constructor(size) {
-    this.width = size;
-    this.height = size;
-    this.numbers = size; // Sudoku contains 1 to numbers
-    gridSize = (canvas.width - 1) / size;
-    textSize = 0.75 * (canvas.width - 1) / size;
+    this.width = size * size;
+    this.height = size * size;
+    this.numbers = size * size; // Sudoku contains 1 to numbers
+    gridSize = (canvas.width - 1) / (size * size);
+    textSize = 0.75 * (canvas.width - 1) / (size * size);
     this.inFocus = [-1, -1];
     // Fill the grid with minor grids.
     this.grid = [];
@@ -125,18 +125,21 @@ class Sudoku {
         }
       }
     }
+    this.grid[x][y] = 0;
+    this.draw();
     return false;
   }
 
   isValid() {
+    let valid = true;
     for (let x = 0; x < this.width; ++x) {
-      this.isValidColumn(x);
+      valid = valid && this.isValidColumn(x);
       for (let y = 0; y < this.height; ++y) {
-        this.isValidRow(y);
-        this.isValidBox(x, y);
+        valid = valid && this.isValidRow(y);
+        valid = valid && this.isValidBox(x, y);
       }
     }
-    return true;
+    return valid;
   }
 
   isValidColumn(x) {
@@ -166,9 +169,21 @@ class Sudoku {
   }
 
   isValidBox(x, y) {
-    for (let x = 0; x < this.width; ++x) {
-      for (let y = 0; y < this.height; ++y) {
-        this.grid[x][y];
+    let check = [];
+    let minorWidth = Math.sqrt(this.width);
+    let x1 = Math.floor(x / minorWidth) * minorWidth;
+    let x2 = (Math.floor(x / minorWidth) + 1) * minorWidth;
+    let minorHeight = Math.sqrt(this.height);
+    let y1 = Math.floor(y / minorHeight) * minorHeight;
+    let y2 = (Math.floor(y / minorHeight) + 1) * minorHeight;
+    for (let i = x1; i < x2; ++i) {
+      for (let j = y1; j < y2; ++j) {
+        if (this.grid[i][j] != 0) {
+          if (check.includes(this.grid[i][j])) {
+            return false;
+          }
+          check.push(this.grid[i][j]);
+        }
       }
     }
     return true;
