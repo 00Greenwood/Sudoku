@@ -12,3 +12,7 @@ function onButtonClick(e, number) {
 function onSolve(e) {
   sudoku.onSolve();
 }
+
+function onReset(e) {
+  sudoku.onReset();
+}

@@ -102,6 +102,7 @@ class Sudoku {
 
   onSolve() {
     this.recursivelyFindSoltuion(0);
+    this.draw();
   }
 
   recursivelyFindSoltuion(position) {
@@ -118,7 +119,6 @@ class Sudoku {
     }
     for (let i = 1; i <= this.numbers; ++i) {
       this.grid[x][y] = i;
-      this.draw();
       if (this.isValid()) {
         if (this.recursivelyFindSoltuion(position + 1)) {
           return true;
@@ -126,7 +126,6 @@ class Sudoku {
       }
     }
     this.grid[x][y] = 0;
-    this.draw();
     return false;
   }
 
@@ -187,5 +186,16 @@ class Sudoku {
       }
     }
     return true;
+  }
+
+  onReset() {
+    this.inFocus = [-1, -1];
+    // Reset the grid be filled with 0's
+    for (let i = 0; i < this.width; ++i) {
+      for (let j = 0; j < this.height; ++j) {
+        this.grid[i][j] = 0;
+      }
+    }
+    this.draw();
   }
 }
